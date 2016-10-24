@@ -10,9 +10,14 @@ released under GNU General Public License
 <!-- start google maps gpx plugin api loader -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <?php
-
-	$params = "sensor=false&libraries=places,panoramio"// sensor=true
-
+	$google_api_key = get_option( 'gmap_v3_google_api_key' );
+	
+	if ( !empty( $google_api_key ) ) {
+		$params = 'sensor=false&libraries=places&key=' . $google_api_key;
+	} else {
+		$params = "sensor=false&libraries=places,panoramio";
+	}
+		
 	?>
 <script type="text/javascript">google.load("maps", "3", {other_params:"<?php echo $params;?>"});</script>
 <script type="text/javascript" src="<?php echo WP_PLUGIN_URL."/".GPX_GM_PLUGIN."/";?>js/gmap_v3_size.js"></script>
