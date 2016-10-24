@@ -80,6 +80,9 @@ if ('process' == $_POST['stage']) {
 
 	$proKey = $_POST['proKey'];
     update_option('gmap_v3_gpx_proKey', $proKey);
+
+    $google_api_key = $_POST['google-api'];
+    update_option('gmap_v3_google_api_key', $google_api_key);
  }
 // default options 
 elseif ('default' == $_POST['stage']) {
@@ -168,6 +171,7 @@ elseif ('default' == $_POST['stage']) {
 			$out .=  "<p style='text-align:right;'> ".__('min. zoom:', GPX_GM_PLUGIN)."  <input id='WMS_minzoom_".$idx."' style='width:20%; ' value='".$attr[5]."' type='text' name='VMap[".$idx."][WMS_minzoom]'/></p>"; 
 			$out .=  "<p style='text-align:right;'> ".__('max. zoom:', GPX_GM_PLUGIN)." <input id='WMS_maxzoom_".$idx."' style='width:20%; ' value='".$attr[6]."' type='text' name='VMap[".$idx."][WMS_maxzoom]'/></p>"; 
 			$out .=  "</div><br />";
+
 			echo $out;
 		}
 		if (is_array($maptypes)){
@@ -359,6 +363,25 @@ float:right;
 			?>
 		</div>
     </div>
+    <div class="opt_div">
+		<div class="opt_out">
+			<input type="text" id="google-api" name="google-api" />
+		<?php 
+			$google_api_key = get_option( 'gmap_v3_google_api_key' );
+			if ( !empty( $google_api_key ) ) {
+				echo "<br />Your google api key is: " . $google_api_key;
+			} else {
+				echo "No api key.";
+			}
+		?>	
+		</div>
+		<div class="opt_head"><h3><?php	_e('Google API Key', GPX_GM_PLUGIN) ?></h3></div>
+		<div class="opt_hint"><p>
+		<?php 
+		_e('Input you google api key to avoid errors', GPX_GM_PLUGIN) ;
+		?>
+		</p></div>
+	</div>
 </div>
     <p style="padding-left:15px">
       <input type="submit" name="Submit" value="<?php _e('Save changes', GPX_GM_PLUGIN) ?>" />
