@@ -130,7 +130,14 @@ function display_eddi($map_id,$post_id)
 	?>
 	<link rel="stylesheet" type="text/css" href="<?php echo WP_PLUGIN_URL."/".GPX_GM_PLUGIN."/";?>editor/editor.css" />
 	<script type="text/javascript" src="//www.google.com/jsapi"></script>
-	<script type="text/javascript">google.load("maps", "3", {other_params:"sensor=false"});</script>
+	<?php 
+	$google_api_key = get_option( 'gmap_v3_google_api_key' );
+	if (! empty( $google_api_key ) ) {
+		echo '<script type="text/javascript">google.load("maps", "3", {other_params:"sensor=false&key='. $google_api_key . '"});</script>';
+	} else {
+		echo '<script type="text/javascript">google.load("maps", "3", {other_params:"sensor=false"});</script>';
+	}	
+	?>
 	<script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js"></script>
 	<script type="text/javascript" src="<?php echo WP_PLUGIN_URL."/".GPX_GM_PLUGIN."/";?>js/gmap_v3_wms_overlay.js"></script>
 	<script type="text/javascript" src="<?php echo WP_PLUGIN_URL."/".GPX_GM_PLUGIN."/";?>editor/jscolor.js"></script>
